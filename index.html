@@ -1,44 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Education Player</title>
+    <title>Educational Video Portal</title>
     <style>
-        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; background: #f0f2f5; padding: 20px; }
-        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 800px; text-align: center; }
-        input { width: 60%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; margin-bottom: 10px; }
-        button { padding: 12px 24px; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        button:hover { background: #218838; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; margin-top: 25px; background: #000; border-radius: 10px; overflow: hidden; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        body { font-family: sans-serif; text-align: center; background: #111; color: white; padding: 50px; }
+        input { padding: 10px; width: 300px; border-radius: 5px; border: none; }
+        button { padding: 10px 20px; cursor: pointer; background: #e67e22; color: white; border: none; border-radius: 5px; }
+        iframe { width: 80%; height: 500px; margin-top: 20px; border: 2px solid #333; }
+        select { padding: 10px; border-radius: 5px; }
     </style>
 </head>
 <body>
+    <h1>Edu-Video Gateway</h1>
+    <p>Enter a YouTube Video ID and choose a server:</p>
+    
+    <select id="instance">
+        <option value="https://yewtu.be">yewtu.be</option>
+        <option value="https://nadeko.net">inv.nadeko.net</option>
+        <option value="https://flokinet.to">invidious.flokinet.to</option>
+    </select>
+    
+    <input type="text" id="videoId" placeholder="Video ID (e.g. dQw4w9WgXcQ)">
+    <button onclick="loadVideo()">Watch</button>
 
-    <div class="card">
-        <h1>YouTube Education Embed</h1>
-        <p>Paste a YouTube Video ID to play it ad-free.</p>
-        <input type="text" id="vidInput" placeholder="Ex: yfN4h1OL1Ew">
-        <button onclick="playVideo()">Play Video</button>
-
-        <div class="video-container" id="player">
-            <!-- Video will load here -->
-        </div>
-    </div>
+    <div id="playerArea"></div>
 
     <script>
-        function playVideo() {
-            const videoId = document.getElementById('vidInput').value.trim();
-            if (videoId) {
-                const player = document.getElementById('player');
-                // Uses the youtubeeducation.com domain for ad-free embedding
-                player.innerHTML = `<iframe src="https://www.youtubeeducation.com/embed/${videoId}?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-            } else {
-                alert("Please enter a Video ID!");
+        function loadVideo() {
+            const id = document.getElementById('videoId').value;
+            const base = document.getElementById('instance').value;
+            if(id) {
+                document.getElementById('playerArea').innerHTML = 
+                    `<iframe src="${base}/embed/${id}" allowfullscreen></iframe>`;
             }
         }
     </script>
-
 </body>
 </html>
